@@ -4,7 +4,7 @@ const bookmarks = [
 		title: 'Title 11',
 		rating: 5,
 		url: 'http://www.title11.com',
-		description: 'lorem ipsum dolor',
+		desc: 'lorem ipsum dolor',
 		expanded: true
 	},
   {
@@ -12,7 +12,7 @@ const bookmarks = [
 		title: 'Title 11',
 		rating: 5,
 		url: 'http://www.title11.com',
-		description: 'lorem ipsum dolor',
+		desc: 'lorem ipsum dolor',
 		expanded: true
 	}
 
