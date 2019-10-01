@@ -6,7 +6,6 @@ import bookmarks from './bookmarks'
 import api from './api'
 
 const runApp = function(){
-  api.createItem()
   api.getItems()
     .then((item) => {
       item.forEach((item) => {

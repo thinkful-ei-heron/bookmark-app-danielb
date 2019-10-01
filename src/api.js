@@ -29,14 +29,20 @@ const getItems = function() {
 }
 
 const createItem = function(){
-  return apiFetch(`${BASE_URL}/bookmarks`, 'POST', JSON.stringify({
-    'title': 'something',
-    'url': 'https://www.thinkful.com'
-  }))
+  return apiFetch(`${BASE_URL}/bookmarks`, 'POST', objects)
 }
 
+const updateItem = function(){
+
+}
+
+const deleteItem = function(){
+
+}
 
 export default {
   getItems,
-  createItem
+  createItem,
+  updateItem,
+  deleteItem
 }
