@@ -6,6 +6,7 @@ const filter = 0;
 
 
 const addItem = function(newBookmark){
+  newBookmark.expanded = false;
   this.bookmarks.push(newBookmark);
 }
 
@@ -19,7 +20,7 @@ const findAndDelete = function(id){
 
 const findAndUpdate = function(id, newData){
   let currentItem = this.findById(id);
-  Object.addign(currentItem, newData);
+  Object.assign(currentItem, newData);
 }
 
 

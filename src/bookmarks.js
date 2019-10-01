@@ -31,7 +31,7 @@ const addNewItemSnippit = function(){
   </div>
   <div>
     <label for="desc">Description:</label>
-    <input type="text" name:"desc" id="desc">
+    <input type="body" name:"desc" id="desc">
   </div>
   <div>
     <label for="rating">Rating</label>
@@ -49,24 +49,46 @@ const addNewItemSnippit = function(){
 }
 
 const generateBookmarkItem = function(object) {
-
-  return `
-      <li class="js-bookmark" data-bookmark-id="${object.id}">
-      <h3>${object.title}</h3>
-      <p>RATING: ${object.rating}</p>
-      <p>URL: ${object.url}</p>
-      <p>DESCRIPTION: ${object.desc}</p>
-      <button id='js-delete-bookmark'>Delete</button>
-      </li>
+  let itemExpanded = `
+        <div>
+          <p class="js-bookmark-rating">RATING: ${object.rating}</p>
+          <p class="js-bookmark-desc">DESCRIPTION: ${object.desc}</p>
+          <a href src="${object.url}" class="js-bookmark-url">LINK</a>
+        </div>
+        <button id='js-delete-bookmark'>Delete</button>
   `
+  if(object.expanded) {
+    return  `
+        <section class="js-bookmark" data-bookmark-id="${object.id}">
+          <div>
+            <h3 class="js-bookmark-title">${object.title}</h3>
+          </div>
+          ${itemExpanded}
+        </section>
+      `
+	}
+  else{
+    return  `
+        <section class="js-bookmark" data-bookmark-id="${object.id}">
+          <div>
+            <h3 class="js-bookmark-title">${object.title}</h3>
+          </div>
+        </section>
+      `
+  }
 }
 
 const generateList = function(bookmarkArray){
   const buttons = `
       <div>
       <button id="js-new-bookmark">New</button>
-      <select id="" name="">
-        <option value="something"></option>
+      <label for="js-rating-filter">Filter Ratings</label>
+      <select id="js-filter-ratings" name="js-rating-filter">
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
       </select>
     </div>
   `
