@@ -1,5 +1,22 @@
 import store from './store'
+import api from './api'
 import $ from 'jquery'
+
+const render = function(){
+  if(store.adding === true) {
+    addNewItemSnippit()
+  }
+  else if(store.adding === false) {
+		api.getItems()
+			.then((item) => {
+				item.forEach((item) => {
+					store.bookmarks.push(item)
+				})
+				renderList();
+			})
+
+  }
+}
 
 const addNewItemSnippit = function(){
   return `
@@ -72,9 +89,11 @@ const clickOnNew = function(){
 
 
 
+
 export default {
 	generateList,
   renderList,
   addNewItemSnippit,
-  clickOnNew
+  clickOnNew,
+	render
 }
