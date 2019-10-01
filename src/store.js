@@ -1,24 +1,4 @@
-const bookmarks = [
-  {
-		id: '7ddr',
-		title: 'Title 11',
-		rating: 5,
-		url: 'http://www.title11.com',
-		desc: 'lorem ipsum dolor',
-		expanded: true
-	},
-  {
-		id: '7ddr',
-		title: 'Title 11',
-		rating: 5,
-		url: 'http://www.title11.com',
-		desc: 'lorem ipsum dolor',
-		expanded: true
-	}
-
-
-
-];
+const bookmarks = [];
 const adding = false;
 const error = null;
 const filter = 0;
@@ -26,14 +6,14 @@ const filter = 0;
 
 
 const addItem = function(newBookmark){
-  this.bookmarks.push(newBookemark);
+  this.bookmarks.push(newBookmark);
 }
 
 const findById = function(id){
   return this.bookmarks.find(currentItem => currentItem.id === id);
 }
 
-const findAndDelte = function(id){
+const findAndDelete = function(id){
   this.bookmarks = this.bookmarks.filter(currentItem => currentItem.id !== id);
 }
 
@@ -49,5 +29,7 @@ export default {
   bookmarks,
   adding,
   error,
-  filter
+  filter,
+  findAndDelete,
+  addItem
 }

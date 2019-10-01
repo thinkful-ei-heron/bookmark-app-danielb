@@ -28,8 +28,8 @@ const getItems = function() {
   return apiFetch(`${BASE_URL}/bookmarks`)
 }
 
-const createItem = function(){
-  return apiFetch(`${BASE_URL}/bookmarks`, 'POST', newObject)
+const createItem = function(newObject){
+  return apiFetch(`${BASE_URL}/bookmarks`, 'POST', JSON.stringify(newObject))
 }
 
 const updateItem = function(id){
