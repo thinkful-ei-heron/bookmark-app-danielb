@@ -13,7 +13,7 @@ const runApp = function(){
       })
       bookmarks.renderList();
     })
-
+  bookmarks.clickOnNew()
   
 //$('.output').html(bookmarks.generateList(store.bookmarks))
 }

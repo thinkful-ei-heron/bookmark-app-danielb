@@ -29,15 +29,15 @@ const getItems = function() {
 }
 
 const createItem = function(){
-  return apiFetch(`${BASE_URL}/bookmarks`, 'POST', objects)
+  return apiFetch(`${BASE_URL}/bookmarks`, 'POST', newObject)
 }
 
-const updateItem = function(){
-
+const updateItem = function(id){
+  return apiFetch(`${BASE_URL}/bookmarks/${id}`, 'PATCH', updateObject)
 }
 
-const deleteItem = function(){
-
+const deleteItem = function(id){
+  return apiFetch(`${BASE_URL}/bookmarks/${id}`, 'DELETE')
 }
 
 export default {

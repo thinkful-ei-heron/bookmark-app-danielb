@@ -5,7 +5,7 @@ const addNewItemSnippit = function(){
   return `
 <form action="">
   <label for="title">Title:</label>
-  <input type="text" name:"title" id="bookmark-title" required>
+  <input type="text" name:"title" id="id-bookmark-title" required>
   <label for="url">URL:</label>
   <input type="url" name:"url" id="bookmark-url" required>
   <label for="desc">Description:</label>
@@ -26,19 +26,27 @@ const addNewItemSnippit = function(){
 const generateBookmarkItem = function(object) {
   return `
     <ul>
-      <li>
+      <li class="js-bookmark" data-bookmark-id="${object.id}">
       <h3>${object.title}</h3>
       <p>RATING: ${object.rating}</p>
       <p>URL: ${object.url}</p>
-      <p>DESCRIPTION: ${object.description}</p>
+      <p>DESCRIPTION: ${object.desc}</p>
       </li>
     </ul>
   `
 }
 
 const generateList = function(bookmarkArray){
+  const buttons = `
+      <div>
+      <button id="js-new-bookmark">New</button>
+      <select id="" name="">
+        <option value="something"></option>
+      </select>
+    </div>
+  `
   const items = bookmarkArray.map((item) => generateBookmarkItem(item));
-  return items.join('');
+  return buttons + items.join('');
 }
 
 
@@ -46,12 +54,27 @@ const renderList = function(){
   $('.output').html(generateList(store.bookmarks))
 }
 
-const listenForNew = function(){
-  
+const getIdFromElement = function(item){
+  return $(item)
+    .closest('.js-bookmark')
+    .data('js-bookmark-id')
 }
+
+const clickOnNew = function(){
+  $('.output').on('click', '#js-new-bookmark', function(event){
+    event.preventDefault()
+    store.adding = true;
+    $('.output').html(addNewItemSnippit())
+    console.log(event)
+    console.log(store.adding)
+  })
+}
+
+
 
 export default {
 	generateList,
   renderList,
-  addNewItemSnippit
+  addNewItemSnippit,
+  clickOnNew
 }
