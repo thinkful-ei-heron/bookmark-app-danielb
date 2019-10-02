@@ -135,7 +135,7 @@ const clickToExpand = function(){
   $('.output').on('click', '.js-bookmark-title', event => {
     let id = getIdFromElement(event.currentTarget)
     console.log(id)
-    store.toggleExpand(id, {expanded: true})
+    store.toggleExpand(id)
     render()
   })
 }
@@ -170,6 +170,12 @@ const clickOnDelete = function(){
   })
 }
 
+const filterRatings = function(){
+  $('.output').on('change', '#js-filter-ratings', event => {
+//    store.filter = // LEFT OFF HERE! ADDED TARGET VALUE AND SAVING TO STORE 
+    console.log(event.currentTarget.value)
+  })
+}
 
 export default {
 	generateList,
@@ -179,5 +185,6 @@ export default {
 	render,
   clickOnSubmit,
   clickOnDelete,
-  clickToExpand
+  clickToExpand,
+  filterRatings
 }

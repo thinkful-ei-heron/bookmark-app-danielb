@@ -18,6 +18,7 @@ const runApp = function(){
   bookmarks.clickOnSubmit()
   bookmarks.clickOnDelete()  
 	bookmarks.clickToExpand()
+  bookmarks.filterRatings()
 //$('.output').html(bookmarks.generateList(store.bookmarks))
 }
 $(runApp)
