@@ -1,10 +1,10 @@
 import $ from 'jquery'
 import 'normalize.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css'
 import store from './store'
 import bookmarks from './bookmarks'
 import api from './api'
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const runApp = function(){
 	api.getItems()

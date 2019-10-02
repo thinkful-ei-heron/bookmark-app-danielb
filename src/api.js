@@ -12,13 +12,13 @@ const apiFetch = function(url, method, newData){
     .then(res => {
       if(!res.ok) {
         error = {code: res.status};
+        store.error = error
       }
       return res.json();
     })
     .then( data => {
       if (error){
         error.message = data.message;
-        console.log(data)
         return Promise.reject(error);
       }
       return data;

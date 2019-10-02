@@ -3,7 +3,11 @@ import api from './api'
 import $ from 'jquery'
 
 const render = function(){
-  if(store.adding === true) {
+  if(store.error) {
+		errorMessage()    
+    store.error === null
+  }
+  else if(store.adding === true) {
     addNewItemSnippit()
   }
   else if(store.adding === false) {
@@ -16,6 +20,11 @@ const render = function(){
 //				renderList();
 //			})
   }
+}
+
+const errorMessage = function(){
+  message = `<div class="alert alert-danger" role="alert">${store.error}</div>`
+  $('.output').html(message)
 }
 
 const addNewItemSnippit = function(){
@@ -136,7 +145,7 @@ const serializer = function(formData) {
 }
 
 const clickToExpand = function(){
-  $('.output').on('click', '.js-bookmark-title', event => {
+  $('.output').on('click', '.card-header', event => {
     let id = getIdFromElement(event.currentTarget)
     console.log(id)
     store.toggleExpand(id)

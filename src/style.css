@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Asap&display=swap');
+
+body {
+  font-family: 'Asap', sans-serif;
+}
+
 main {
   text-align: center;
   margin-left: auto;
@@ -9,6 +15,9 @@ main {
   margin-bottom: 1vh;
 }
 
+.card-title {
+  margin-bottom: 0px;
+}
 
 
 select {
@@ -16,11 +25,11 @@ select {
 	-moz-appearance: none;
 	appearance: none;       /* Remove default arrow */   /* Add custom arrow */
 	display: inline-block;
-  box-sizing: border-box;
 	font-size: 1rem;
 	padding: .375rem .75rem;
 	color: white;
 	background-color: gray;
+  vertical-align: middle;
 	height: 38px;
 	border: none;
 	border-radius: .25rem;
