@@ -1,7 +1,8 @@
 const bookmarks = [];
-const adding = false;
+let adding = false;
 const error = null;
 const filter = 0;
+const updating = false;
 
 
 
@@ -38,5 +39,7 @@ export default {
   filter,
   findAndDelete,
   addItem,
-  toggleExpand
+  toggleExpand,
+  findById,
+  findAndUpdate
 }

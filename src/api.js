@@ -1,7 +1,9 @@
+import store from './store'
+import bookmarks from './bookmarks'
 const BASE_URL = 'https://thinkful-list-api.herokuapp.com/brahyt'
 
 const apiFetch = function(url, method, newData){
-  let error = false;
+  let error = ''
   return fetch(url, {
     method: method,
     headers: {
@@ -12,14 +14,14 @@ const apiFetch = function(url, method, newData){
     .then(res => {
       if(!res.ok) {
         error = {code: res.status};
-        store.error = error
+        store.error = true
       }
       return res.json();
     })
     .then( data => {
       if (error){
         error.message = data.message;
-        return Promise.reject(error);
+        bookmarks.render()
       }
       return data;
     });
@@ -33,8 +35,8 @@ const createItem = function(newObject){
   return apiFetch(`${BASE_URL}/bookmarks`, 'POST', JSON.stringify(newObject))
 }
 
-const updateItem = function(id){
-  return apiFetch(`${BASE_URL}/bookmarks/${id}`, 'PATCH', updateObject)
+const updateItem = function(id, updateObject){
+  return apiFetch(`${BASE_URL}/bookmarks/${id}`, 'PATCH', JSON.stringify(updateObject))
 }
 
 const deleteItem = function(id){

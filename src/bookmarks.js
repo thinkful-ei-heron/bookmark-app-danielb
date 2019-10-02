@@ -7,10 +7,10 @@ const render = function(){
 		errorMessage()    
     store.error === null
   }
-  else if(store.adding === true) {
+  else if(store.adding) {
     addNewItemSnippit()
   }
-  else if(store.adding === false) {
+  else if(!store.adding) {
     renderList();
 //		api.getItems()
 //			.then((item) => {
@@ -24,7 +24,7 @@ const render = function(){
 
 const errorMessage = function(){
   message = `<div class="alert alert-danger" role="alert">${store.error}</div>`
-  $('.output').html(message)
+  $('.output').append(message)
 }
 
 const addNewItemSnippit = function(){
@@ -64,7 +64,8 @@ const generateBookmarkItem = function(object) {
           <p class="js-bookmark-desc card-text">DESCRIPTION: ${object.desc}</p>
           <a href="${object.url}" class="js-bookmark-url card-text"><button id ='js-go-url' class="btn btn-primary">GO!</button>
 </a>
-        <button class="btn btn-danger" id='js-delete-bookmark'>Delete</button>
+          <button class="btn btn-primary" id='js-update-bookmark'>Update</button>
+          <button class="btn btn-danger" id='js-delete-bookmark'>Delete</button>
         </div>
   `
   if(object.expanded) {
@@ -84,13 +85,12 @@ const generateBookmarkItem = function(object) {
             <h3 class="js-bookmark-title card-title">${object.title}</h3>
           </div>
         </section>
-      `
+        `
   }
 }
 }
 
 const generateList = function(bookmarkArray){
-
   const buttons = `
       <div class="form-group">
       <button class="btn btn-primary" id="js-new-bookmark">New</button>
@@ -147,7 +147,7 @@ const serializer = function(formData) {
 const clickToExpand = function(){
   $('.output').on('click', '.card-header', event => {
     let id = getIdFromElement(event.currentTarget)
-    console.log(id)
+//    console.log(id)
     store.toggleExpand(id)
     render()
   })
@@ -156,21 +156,77 @@ const clickToExpand = function(){
 const clickOnSubmit = function(){
   $('.output').on('submit', '#js-form', event => {
     event.preventDefault()
-    let myForm = document.querySelector('#js-form')
-    let serObj = serializer(myForm)
-    api.createItem(serObj)
-      .then(res => {
-        store.addItem(res)
-//        console.log(thing)
-        store.adding = false;
-        render();
-      })
-//    serializer(newData);
-//    render()
+    console.log(store.updating)
+    let id = getIdFromElement(event.currentTarget);
+    if(!store.updating){
+      let myForm = document.querySelector('#js-form')
+      let serObj = serializer(myForm)
+      api.createItem(serObj)
+        .then(res => {
+          store.addItem(res)
+          store.adding = false;
+          render();
+        })
+		}
+    if(store.updating){
+      let myForm = document.querySelector('#js-form')
+      let serObj = serializer(myForm)
+//      serObj.id = id
+      console.log(serObj)
+      api.updateItem(id, serObj)
+        .then(res => {
+          store.findAndUpdate(id, serObj)
+          store.updating = false;
+          render()
+        })
+		}
   })
 }
 
-const clickOnDelete = function(){
+const updateSnippit = function(oldObject) {
+  return `
+<form class="container-fluid" id="js-form" name="js-form">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input class="form-control"type="text" name:"title" id="title" value="${oldObject.title}" required>
+  </div>
+  <div class="form-group">
+    <label for="url">URL</label>
+    <input class="form-control" type="url" name:"url" id="url" value="${oldObject.url}"required>
+  </div>
+  <div class="form-group">
+    <label for="desc">Description</label>
+    <textarea class="form-control" rows="3" name:"desc" id="desc" value="">${oldObject.desc}</textarea>
+  </div>
+  <div class="form-group">
+    <select id="rating" name="rating" value="${oldObject.rating}">
+      <option value="5">Rating: 5</option>
+      <option value="4">Rating: 4</option>
+      <option value="3">Rating: 3</option>
+      <option value="2">Rating: 2</option>
+      <option value="1">Rating: 1</option>
+    </select>
+  </div>
+    <button class="btn btn-primary" id="js-add-new">Submit</button>
+</form>
+  `
+}
+
+
+const clickOnUpdate = function() {
+  $('.output').on('click', '#js-update-bookmark', event => {
+    event.preventDefault();
+    store.updating = true;
+    let id = getIdFromElement(event.currentTarget);
+    let target = event.currentTarget  
+    let currentObject = store.findById(id);
+    target.parentElement.innerHTML = updateSnippit(currentObject)
+//    render()
+	}
+  );
+}
+
+const clickOnDelete = function() {
   $('.output').on('click', '#js-delete-bookmark', event => {
     event.preventDefault()
     let id = getIdFromElement(event.currentTarget)
@@ -186,7 +242,7 @@ const clickOnDelete = function(){
 const filterRatings = function(){
   $('.output').on('change', '#js-filter-ratings', event => {
     store.filter = event.currentTarget.value;
-		console.log(store.filter)
+//		console.log(store.filter)
     render()
   })
 }
@@ -200,5 +256,6 @@ export default {
   clickOnSubmit,
   clickOnDelete,
   clickToExpand,
-  filterRatings
+  filterRatings,
+  clickOnUpdate
 }
