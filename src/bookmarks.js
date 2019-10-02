@@ -20,32 +20,29 @@ const render = function(){
 
 const addNewItemSnippit = function(){
   return `
-<form id="js-form" name="js-form">
+<form class="container-fluid" id="js-form" name="js-form">
   <div class="form-group">
-    <label for="title">Title:</label>
-    <input type="text" name:"title" id="title" required>
+    <label for="title">Title</label>
+    <input class="form-control"type="text" name:"title" id="title" required>
   </div>
   <div class="form-group">
-    <label for="url">URL:</label>
-    <input type="url" name:"url" id="url" required>
+    <label for="url">URL</label>
+    <input class="form-control" type="url" name:"url" id="url" required>
   </div>
   <div class="form-group">
-    <label for="desc">Description:</label>
-    <textarea type="body" name:"desc" id="desc"></textarea>
+    <label for="desc">Description</label>
+    <textarea class="form-control" rows="3" name:"desc" id="desc"></textarea>
   </div>
   <div class="form-group">
-    <label for="rating">Rating</label>
     <select id="rating" name="rating">
-      <option value="5">5</option>
-      <option value="4">4</option>
-      <option value="3">3</option>
-      <option value="2">2</option>
-      <option value="1">1</option>
+      <option value="5">Rating: 5</option>
+      <option value="4">Rating: 4</option>
+      <option value="3">Rating: 3</option>
+      <option value="2">Rating: 2</option>
+      <option value="1">Rating: 1</option>
     </select>
   </div>
-  <div class="form-group"
     <button class="btn btn-primary" id="js-add-new">Submit</button>
-  </div>
 </form>
   `
 }
@@ -92,7 +89,7 @@ const generateList = function(bookmarkArray){
       <select id="js-filter-ratings" name="js-rating-filter">
 				<option value="0">Filter Rating</option>
         <option value="5">Rating: 5</option>
-        <option value="4">Rating: >4</option>
+        <option value="4">Rating: 4</option>
         <option value="3">Rating: 3</option>
         <option value="2">Rating: 2</option>
         <option value="1">Rating: 1</option>
