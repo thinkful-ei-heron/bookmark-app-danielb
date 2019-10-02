@@ -21,19 +21,19 @@ const render = function(){
 const addNewItemSnippit = function(){
   return `
 <form id="js-form" name="js-form">
-  <div>
+  <div class="form-group">
     <label for="title">Title:</label>
     <input type="text" name:"title" id="title" required>
   </div>
-  <div>
+  <div class="form-group">
     <label for="url">URL:</label>
     <input type="url" name:"url" id="url" required>
   </div>
-  <div>
+  <div class="form-group">
     <label for="desc">Description:</label>
-    <input type="body" name:"desc" id="desc">
+    <textarea type="body" name:"desc" id="desc"></textarea>
   </div>
-  <div>
+  <div class="form-group">
     <label for="rating">Rating</label>
     <select id="rating" name="rating">
       <option value="5">5</option>
@@ -43,24 +43,28 @@ const addNewItemSnippit = function(){
       <option value="1">1</option>
     </select>
   </div>
-  <button id="js-add-new">Submit</button>
+  <div class="form-group"
+    <button class="btn btn-primary" id="js-add-new">Submit</button>
+  </div>
 </form>
   `
 }
 
 const generateBookmarkItem = function(object) {
+  if(object.rating >= store.filter) {
   let itemExpanded = `
         <div>
-          <p class="js-bookmark-rating">RATING: ${object.rating}</p>
-          <p class="js-bookmark-desc">DESCRIPTION: ${object.desc}</p>
-          <a href src="${object.url}" class="js-bookmark-url">LINK</a>
+          <p class="js-bookmark-rating card-text">RATING: ${object.rating}</p>
+          <p class="js-bookmark-desc card-text">DESCRIPTION: ${object.desc}</p>
+          <a href="${object.url}" class="js-bookmark-url card-text"><button id ='js-go-url' class="btn btn-primary">GO!</button>
+</a>
+        <button class="btn btn-danger" id='js-delete-bookmark'>Delete</button>
         </div>
-        <button id='js-delete-bookmark'>Delete</button>
   `
   if(object.expanded) {
     return  `
-        <section class="js-bookmark" data-bookmark-id="${object.id}">
-          <div>
+        <section class="js-bookmark card" data-bookmark-id="${object.id}">
+          <div class="card-header">
             <h3 class="js-bookmark-title">${object.title}</h3>
           </div>
           ${itemExpanded}
@@ -69,26 +73,29 @@ const generateBookmarkItem = function(object) {
 	}
   else{
     return  `
-        <section class="js-bookmark" data-bookmark-id="${object.id}">
-          <div>
-            <h3 class="js-bookmark-title">${object.title}</h3>
+        <section class="js-bookmark card" data-bookmark-id="${object.id}">
+          <div class="card-header">
+            <h3 class="js-bookmark-title card-title">${object.title}</h3>
           </div>
         </section>
       `
   }
 }
+}
 
 const generateList = function(bookmarkArray){
+
   const buttons = `
-      <div>
-      <button id="js-new-bookmark">New</button>
-      <label for="js-rating-filter">Filter Ratings</label>
+      <div class="form-group">
+      <button class="btn btn-primary" id="js-new-bookmark">New</button>
+
       <select id="js-filter-ratings" name="js-rating-filter">
-        <option value="5">5</option>
-        <option value="4">4</option>
-        <option value="3">3</option>
-        <option value="2">2</option>
-        <option value="1">1</option>
+				<option value="0">Filter Rating</option>
+        <option value="5">Rating: 5</option>
+        <option value="4">Rating: >4</option>
+        <option value="3">Rating: 3</option>
+        <option value="2">Rating: 2</option>
+        <option value="1">Rating: 1</option>
       </select>
     </div>
   `
@@ -172,8 +179,9 @@ const clickOnDelete = function(){
 
 const filterRatings = function(){
   $('.output').on('change', '#js-filter-ratings', event => {
-//    store.filter = // LEFT OFF HERE! ADDED TARGET VALUE AND SAVING TO STORE 
-    console.log(event.currentTarget.value)
+    store.filter = event.currentTarget.value;
+		console.log(store.filter)
+    render()
   })
 }
 
