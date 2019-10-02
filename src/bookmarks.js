@@ -59,7 +59,7 @@ const addNewItemSnippit = function(){
 const generateBookmarkItem = function(object) {
   if(object.rating >= store.filter) {
   let itemExpanded = `
-        <div>
+        <div class="card-body">
           <p class="js-bookmark-rating card-text">RATING: ${object.rating}</p>
           <p class="js-bookmark-desc card-text">DESCRIPTION: ${object.desc}</p>
           <a href="${object.url}" class="js-bookmark-url card-text"><button id ='js-go-url' class="btn btn-primary">GO!</button>
