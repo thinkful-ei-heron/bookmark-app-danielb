@@ -9,7 +9,7 @@ const runApp = function(){
 	api.getItems()
 	.then((item) => {
 		item.forEach((item) => {
-			store.bookmarks.push(item)
+			store.addItem(item)
 		})
 		bookmarks.renderList();
 	})
@@ -17,6 +17,7 @@ const runApp = function(){
   bookmarks.clickOnNew()
   bookmarks.clickOnSubmit()
   bookmarks.clickOnDelete()  
+	bookmarks.clickToExpand()
 //$('.output').html(bookmarks.generateList(store.bookmarks))
 }
 $(runApp)

@@ -11,7 +11,7 @@ const addItem = function(newBookmark){
 }
 
 const findById = function(id){
-  return this.bookmarks.find(currentItem => currentItem.id === id);
+  return bookmarks.find(currentItem => currentItem.id === id);
 }
 
 const findAndDelete = function(id){
@@ -23,6 +23,11 @@ const findAndUpdate = function(id, newData){
   Object.assign(currentItem, newData);
 }
 
+const toggleExpand = function(id){
+  let currentItem = findById(id);
+  currentItem.expanded = !currentItem.expanded
+
+}
 
 
 
@@ -32,5 +37,6 @@ export default {
   error,
   filter,
   findAndDelete,
-  addItem
+  addItem,
+  toggleExpand
 }

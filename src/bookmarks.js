@@ -131,6 +131,15 @@ const serializer = function(formData) {
   }
 }
 
+const clickToExpand = function(){
+  $('.output').on('click', '.js-bookmark-title', event => {
+    let id = getIdFromElement(event.currentTarget)
+    console.log(id)
+    store.toggleExpand(id, {expanded: true})
+    render()
+  })
+}
+
 const clickOnSubmit = function(){
   $('.output').on('submit', '#js-form', event => {
     event.preventDefault()
@@ -169,5 +178,6 @@ export default {
   clickOnNew,
 	render,
   clickOnSubmit,
-  clickOnDelete
+  clickOnDelete,
+  clickToExpand
 }
